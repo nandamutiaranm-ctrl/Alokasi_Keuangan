@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Kalkulator Alokasi Pendapatan</title>
-<meta name="theme-color" content="#0F6E56" />
+<meta name="theme-color" content="#F4C0D1" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" href="icons/icon-192.png" />
 <link rel="apple-touch-icon" href="icons/icon-192.png" />
@@ -13,29 +13,53 @@
 <meta name="apple-mobile-web-app-title" content="Alokasi Dana" />
 <style>
   :root {
-    --bg: #f5f4f0;
+    --bg: #FDF6F8;
     --card: #ffffff;
-    --border: #e4e2da;
-    --text-primary: #1f1f1d;
-    --text-secondary: #6b6a64;
-    --accent: #0F6E56;
-    --accent-bg: #E1F5EE;
+    --border: #F4DCE6;
+    --text-primary: #4a3b42;
+    --text-secondary: #9b8891;
+    --accent: #D4537E;
+    --pink: #FBEAF0;
+    --pink-text: #993556;
+    --purple: #EEEDFE;
+    --purple-text: #534AB7;
+    --mint: #E1F5EE;
+    --mint-text: #0F6E56;
+    --peach: #FAECE7;
+    --peach-text: #993C1D;
+    --yellow: #FAEEDA;
+    --yellow-text: #854F0B;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg);
+    background-image:
+      radial-gradient(circle at 8% 12%, #FBEAF055 0 26px, transparent 27px),
+      radial-gradient(circle at 92% 8%, #EEEDFE66 0 30px, transparent 31px),
+      radial-gradient(circle at 88% 92%, #E1F5EE66 0 34px, transparent 35px),
+      radial-gradient(circle at 5% 90%, #FAEEDA66 0 24px, transparent 25px);
+    background-repeat: no-repeat;
     color: var(--text-primary);
     padding: 1.25rem;
     padding-bottom: 3rem;
     max-width: 480px;
     margin: 0 auto;
   }
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .title-row .flower {
+    font-size: 22px;
+  }
   h1 {
     font-size: 20px;
     font-weight: 600;
-    margin: 0.5rem 0 1.25rem;
+    margin: 0;
   }
   .input-row {
     display: flex;
@@ -46,7 +70,7 @@
     flex: 1;
     height: 44px;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 14px;
     padding: 0 12px;
     font-size: 16px;
     background: var(--card);
@@ -59,7 +83,7 @@
   button {
     height: 44px;
     padding: 0 16px;
-    border-radius: 10px;
+    border-radius: 14px;
     border: none;
     background: var(--accent);
     color: white;
@@ -75,20 +99,32 @@
     margin-bottom: 1.5rem;
   }
   .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    position: relative;
+    border-radius: 16px;
     padding: 14px;
+    overflow: hidden;
+  }
+  .card .flower-deco {
+    position: absolute;
+    top: -6px;
+    right: -2px;
+    font-size: 26px;
+    opacity: 0.55;
   }
   .card .label {
     font-size: 12px;
-    color: var(--text-secondary);
     margin-bottom: 6px;
+    font-weight: 500;
   }
   .card .value {
     font-size: 18px;
     font-weight: 600;
   }
+  .c-pink { background: var(--pink); color: var(--pink-text); }
+  .c-purple { background: var(--purple); color: var(--purple-text); }
+  .c-mint { background: var(--mint); color: var(--mint-text); }
+  .c-peach { background: var(--peach); color: var(--peach-text); }
+  .c-yellow { background: var(--yellow); color: var(--yellow-text); }
   .section-title {
     display: flex;
     justify-content: space-between;
@@ -104,6 +140,7 @@
     height: 32px;
     font-size: 12px;
     padding: 0 10px;
+    border-radius: 10px;
   }
   #history-list {
     display: flex;
@@ -117,7 +154,7 @@
     padding: 10px 12px;
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 14px;
   }
   .empty {
     font-size: 13px;
@@ -128,7 +165,10 @@
 </head>
 <body>
 
-<h1>Kalkulator alokasi pendapatan</h1>
+<div class="title-row">
+  <span class="flower">🌸</span>
+  <h1>Kalkulator alokasi pendapatan</h1>
+</div>
 
 <div class="input-row">
   <input type="number" id="income" placeholder="Contoh: 5000000" inputmode="numeric" />
@@ -145,11 +185,11 @@
 
 <script>
 const rules = [
-  { key: 'kebutuhan', label: 'Kebutuhan hidup', pct: 50 },
-  { key: 'haji', label: 'Haji / umroh', pct: 20 },
-  { key: 'tabungan', label: 'Tabungan', pct: 10 },
-  { key: 'investasi', label: 'Investasi', pct: 10 },
-  { key: 'sedekah', label: 'Sedekah & ortu', pct: 10 }
+  { key: 'kebutuhan', label: 'Kebutuhan hidup', pct: 50, color: 'c-mint', flower: '🌿' },
+  { key: 'haji', label: 'Haji / umroh', pct: 20, color: 'c-purple', flower: '🪷' },
+  { key: 'tabungan', label: 'Tabungan', pct: 10, color: 'c-pink', flower: '🌸' },
+  { key: 'investasi', label: 'Investasi', pct: 10, color: 'c-yellow', flower: '🌼' },
+  { key: 'sedekah', label: 'Sedekah', pct: 10, color: 'c-peach', flower: '🌺' }
 ];
 
 const STORAGE_KEY = 'alokasi-history';
@@ -164,8 +204,9 @@ function renderResults(income) {
   rules.forEach((r) => {
     const val = (income * r.pct) / 100;
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card ' + r.color;
     card.innerHTML = `
+      <span class="flower-deco">${r.flower}</span>
       <div class="label">${r.label} (${r.pct}%)</div>
       <div class="value">${fmt(val)}</div>
     `;
